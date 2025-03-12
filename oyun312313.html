@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saadet'in Rahatlama Seansı</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+        .face {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.1s;
+        }
+        .damage {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .score {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Saadet'in Rahatlama Seansı</h1>
+    <div class="score">Puan: <span id="score">0</span></div>
+    <div class="container">
+        <img src="user_image.jpg" id="face" class="face">
+        <img src="bruise.png" id="damage" class="damage">
+    </div>
+    <div class="buttons">
+        <button onclick="slap()">Tokat At</button>
+        <button onclick="punch()">Yumruk At</button>
+    </div>
+    <audio id="slapSound" src="slap.mp3"></audio>
+    <audio id="punchSound" src="punch.mp3"></audio>
+    <script>
+        let score = 0;
+        function updateScore(points) {
+            score += points;
+            document.getElementById('score').innerText = score;
+        }
+        function slap() {
+            let face = document.getElementById('face');
+            let damage = document.getElementById('damage');
+            document.getElementById('slapSound').play();
+            face.style.transform = "rotate(-10deg)";
+            setTimeout(() => { face.style.transform = "rotate(0deg)"; }, 100);
+            damage.style.opacity = "0.5";
+            damage.style.transform = "scale(1.1)";
+            setTimeout(() => { damage.style.transform = "scale(1)"; }, 200);
+            updateScore(10);
+        }
+        function punch() {
+            let face = document.getElementById('face');
+            let damage = document.getElementById('damage');
+            document.getElementById('punchSound').play();
+            face.style.transform = "scale(1.2)";
+            setTimeout(() => { face.style.transform = "scale(1)"; }, 100);
+            damage.style.opacity = "1";
+            damage.style.transform = "scale(1.3)";
+            setTimeout(() => { damage.style.transform = "scale(1)"; }, 200);
+            updateScore(20);
+        }
+    </script>
+</body>
+</html>
